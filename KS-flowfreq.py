@@ -53,7 +53,7 @@ while True:
         currenthour=now.tm_hour
         currentminute=now.tm_min
         currentsecond=now.tm_sec
-        
+
         start_counter = 1
         count=0
         time.sleep(1)
@@ -75,7 +75,7 @@ while True:
             for line in (line for line in file if line.rstrip('\n')):
                 last = line
             #set totalflow to last known value
-            totalflow = int(last.split(",")[2])
+            totalflow = float(last.split(",")[2])
         elif not (os.path.isfile(filename)):
             #Initial and daily startup
             totalflow = 0
@@ -88,7 +88,7 @@ while True:
             file.write(pt)
             file.write(",%f,%f\n" % (flow,totalflow))
             file.close()
-            
+
         if stepf >= 60 and PWMstarted == 0:
             GPIO.output(stepperENABLE, GPIO.LOW)
             PWM.start(stepperSTEP, 50, stepf, 1)
