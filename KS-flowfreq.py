@@ -117,6 +117,7 @@ while True:
             suctionEMPTY = 1
             
         if stepf >= 60 and PWMstarted == 0:
+            GPIO.output(stepperDIR, GPIO.LOW)
             GPIO.output(stepperENABLE, GPIO.LOW)
             time.sleep(0.25)
             PWM.start(stepperSTEP, 50, stepf, 1)
@@ -152,7 +153,7 @@ while True:
 
         elif stepf < 60 and PWMstarted == 1:
             PWM.stop(stepperSTEP)
-            time.sleep(.0.25)
+            time.sleep(0.25)
             PWM.cleanup()
             GPIO.output(stepperENABLE, GPIO.HIGH)
             PWMstarted = 0
