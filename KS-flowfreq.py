@@ -4,6 +4,8 @@ import Adafruit_BBIO.PWM as PWM
 import time, sys
 import os.path
 
+fixture = "KITCHEN_SINK"
+
 stepperDIR = 'P8_7' #selected according to pump configuration
 stepperSTEP = 'P9_16' #controlled by PWM
 stepperENABLE = 'P8_11'  #high disables driver mosfets, low enables
@@ -23,7 +25,7 @@ now=time.localtime(time.time())
 currentmonth=now.tm_mon
 currentday=now.tm_mday
 currentyear=now.tm_year
-filename = "{0}_{1}_{2}_KITCHEN_SINK-flow.csv".format(currentyear, currentmonth, currentday)
+filename = "{0}_{1}_{2}_{3}-flow.csv".format(currentyear, currentmonth, currentday, fixture)
 
 global count
 global countIDLE
@@ -104,7 +106,7 @@ while True:
             #if MM/DD/YR changes, update filename
             #this translates to a new file every day
             ##!!!!header row is dropped from subsequent days
-            filename = "{0}_{1}_{2}_KITCHEN_SINK-flow.csv".format(currentyear, currentmonth, currentday)
+            filename = "{0}_{1}_{2}_{3}-flow.csv".format(currentyear, currentmonth, currentday, fixture)
 
         elif stepf >= 60 and PWMstarted == 1:
             PWM.set_frequency(stepperSTEP, stepf)
@@ -119,7 +121,7 @@ while True:
             #if MM/DD/YR changes, update filename
             #this translates to a new file every day
             ##!!!!header row is dropped from subsequent days
-            filename = "{0}_{1}_{2}_KITCHEN_SINK-flow.csv".format(currentyear, currentmonth, currentday)
+            filename = "{0}_{1}_{2}_{3}-flow.csv".format(currentyear, currentmonth, currentday, fixture)
 
         elif stepf < 60 and PWMstarted == 1:
             PWM.stop(stepperSTEP)
@@ -143,7 +145,7 @@ while True:
                 #if MM/DD/YR changes, update filename
                 #this translates to a new file every day
                 ##!!!!header row is dropped from subsequent days
-                filename = "{0}_{1}_{2}_KITCHEN_SINK-flow.csv".format(currentyear, currentmonth, currentday)
+                filename = "{0}_{1}_{2}_{3}-flow.csv".format(currentyear, currentmonth, currentday, fixture)
 
         #else:
             #stepf < 5 and PWMstarted == 0 is do nothing
